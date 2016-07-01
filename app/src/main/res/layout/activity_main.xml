@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="55"
-        android:id="@+id/topLeftTextView"
+        android:id="@+id/firstButtonTextView"
         android:layout_below="@+id/problemTextView"
         android:layout_toEndOf="@+id/timerTextView"
         android:layout_marginTop="94dp"
@@ -53,8 +53,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="55"
-        android:id="@+id/topRightTextView"
-        android:layout_alignTop="@+id/topLeftTextView"
+        android:id="@+id/secondButtonTextView"
+        android:layout_alignTop="@+id/firstButtonTextView"
         android:layout_alignParentEnd="true"
         android:background="@android:color/holo_orange_dark"
         android:padding="50dp" />
@@ -64,11 +64,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="55"
-        android:id="@+id/bottomLeftTextView"
+        android:id="@+id/thirdButtonTextView"
         android:background="@android:color/holo_purple"
         android:padding="50dp"
-        android:layout_below="@+id/topLeftTextView"
-        android:layout_alignStart="@+id/topLeftTextView"
+        android:layout_below="@+id/firstButtonTextView"
+        android:layout_alignStart="@+id/firstButtonTextView"
         android:layout_marginTop="50dp" />
 
     <TextView
@@ -76,10 +76,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="55"
-        android:id="@+id/bottomRightTextView"
+        android:id="@+id/fourthButtonTextView"
         android:background="@android:color/holo_red_light"
         android:padding="50dp"
-        android:layout_alignTop="@+id/bottomLeftTextView"
-        android:layout_alignStart="@+id/topRightTextView" />
+        android:layout_alignTop="@+id/thirdButtonTextView"
+        android:layout_alignStart="@+id/secondButtonTextView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        android:id="@+id/testButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
