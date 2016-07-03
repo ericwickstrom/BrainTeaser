@@ -7,11 +7,12 @@
 
 package com.example.beardsmcgee.brainteaser;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,14 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    // count down timer
+    // TextView for displaying count down
+    // GAME_TIME is total time for the game (ie: 30000 ms is 30 seconds)
+    // TIMER_UPDATE is when to update clock (ie: 1000ms is 1 second)
     private TextView timerTextView;
+    private final int GAME_TIME = 30000;
+    private final int TIMER_UPDATE = 1000;
+
+    private GridLayout gridLayout;
 
     // displays current arithmetic problem
     private TextView problemTextView;
@@ -29,16 +36,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView scoreTextView;
 
     // possible option 1
-    private TextView firstButtonTextView;
+    private Button firstButton;
 
     // possible option 2
-    private TextView secondButtonTextView;
+    private Button secondButton;
 
     // possible option 3
-    private TextView thirdButtonTextView;
+    private Button thirdButton;
 
     // possible option 4
-    private TextView fourthButtonTextView;
+    private Button fourthButton;
+
+    //button for new game
+    private Button newGameButton;
 
     // Upper bound for random ints
     private final int UPPER_BOUND = 9;
@@ -68,54 +78,102 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
 
+        gridLayout = (GridLayout) findViewById(R.id.grid_layout);
+        gridLayout.setVisibility(View.GONE);
 
-        //********************testing************************
-        Button testButton = (Button) findViewById(R.id.testButton);
-        testButton.setOnClickListener(new View.OnClickListener(){
+        newGameButton = (Button) findViewById(R.id.startButton);
+        newGameButton.setVisibility(View.VISIBLE);
+        newGameButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
-                createProblem();
+                newGameButton.setVisibility(View.GONE);
+                gridLayout.setVisibility(View.VISIBLE);
+                newGame();
             }
         });
 
-        timerTextView       = (TextView) findViewById(R.id.timerTextView);
-        problemTextView     = (TextView) findViewById(R.id.problemTextView);
-        scoreTextView       = (TextView) findViewById(R.id.scoreTextView);
-        firstButtonTextView = (TextView) findViewById(R.id.firstButtonTextView);
-        secondButtonTextView = (TextView) findViewById(R.id.secondButtonTextView);
-        thirdButtonTextView = (TextView) findViewById(R.id.thirdButtonTextView);
-        fourthButtonTextView = (TextView) findViewById(R.id.fourthButtonTextView);
+        timerTextView = (TextView) findViewById(R.id.timerTextView);
+        timerTextView.setText("");
 
-        firstButtonTextView.setOnClickListener(new View.OnClickListener(){
+        problemTextView = (TextView) findViewById(R.id.problemTextView);
+        problemTextView.setText("");
+
+        scoreTextView = (TextView) findViewById(R.id.scoreTextView);
+        scoreTextView.setText("0/0");
+
+        firstButton = (Button) findViewById(R.id.firstButton);
+        firstButton.setText("");
+
+        secondButton = (Button) findViewById(R.id.secondButton);
+        secondButton.setText("");
+
+        thirdButton = (Button) findViewById(R.id.thirdButtonTextView);
+        thirdButton.setText("");
+
+        fourthButton = (Button) findViewById(R.id.fourthButton);
+        fourthButton.setText("");
+
+         // Button onClick listeners
+        firstButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
-                answer((TextView) view);
+                answer((Button) view);
             }
         });
 
-        secondButtonTextView.setOnClickListener(new View.OnClickListener(){
+        secondButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                answer((TextView) view);
+                answer((Button) view);
             }
         });
 
-        thirdButtonTextView.setOnClickListener(new View.OnClickListener(){
+        thirdButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                answer((TextView) view);}
+                answer((Button) view);}
         });
 
-        fourthButtonTextView.setOnClickListener(new View.OnClickListener(){
+        fourthButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                answer((TextView) view);
+                answer((Button) view);
             }
         });
+
+    }
+
+    /*
+     * Method creates a new game by
+     * creating a countdowntimer and the first problem.
+     */
+
+    private void newGame(){
+        createProblem();
+        timerTextView.setText(String.valueOf(GAME_TIME / 1000));
+
+        new CountDownTimer(GAME_TIME+100, TIMER_UPDATE){
+
+            @Override
+            public void onTick(long l) {
+                int secondsLeft = (int) l / 1000;
+                timerTextView.setText(String.valueOf(secondsLeft));
+            }
+
+            @Override
+            public void onFinish() {
+                timerTextView.setText("0");
+                gridLayout.setVisibility(View.GONE);
+                problemTextView.setText("");
+                newGameButton.setVisibility(View.VISIBLE);
+
+            }
+        }.start();
 
     }
 
@@ -125,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
      * Updates a, b and answer.
      * Generates answers
      */
+
     private void createProblem(){
         totalQuestions++;
         // create problem
@@ -146,23 +205,23 @@ public class MainActivity extends AppCompatActivity {
         //assign textviews
         switch(correctButton){
             case(FIRST_BUTTON):
-                setAnswers(firstButtonTextView, secondButtonTextView, thirdButtonTextView,
-                        fourthButtonTextView, x, y, z);
+                setAnswers(firstButton, secondButton, thirdButton,
+                        fourthButton, x, y, z);
                 break;
 
             case(SECOND_BUTTON):
-                setAnswers(secondButtonTextView, firstButtonTextView, thirdButtonTextView,
-                        fourthButtonTextView, x, y, z);
+                setAnswers(secondButton, firstButton, thirdButton,
+                        fourthButton, x, y, z);
                 break;
 
             case(THIRD_BUTTON):
-                setAnswers(thirdButtonTextView, firstButtonTextView, secondButtonTextView,
-                        fourthButtonTextView, x, y, z);
+                setAnswers(thirdButton, firstButton, secondButton,
+                        fourthButton, x, y, z);
                 break;
 
             case(FOURTH_BUTTON):
-                setAnswers(fourthButtonTextView, firstButtonTextView, secondButtonTextView,
-                        thirdButtonTextView, x, y, z);
+                setAnswers(fourthButton, firstButton, secondButton,
+                        thirdButton, x, y, z);
                 break;
         }
         setProblem();
@@ -174,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
     // Sets text of other text views to integers
     // First argument will contain correct answer, rest will be incorrect.
     // X, Y, Z are incorrect answers
-    private void setAnswers(TextView correctButton, TextView button1, TextView button2, TextView button3, int x, int y, int z){
+    private void setAnswers(Button correctButton, Button button1, Button button2, Button button3, int x, int y, int z){
         correctButton.setText(String.valueOf(answer));
         button1.setText(String.valueOf(x));
         button2.setText(String.valueOf(y));
@@ -193,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Checks if selected answer is correct
     // calls setScore() and createProblem()
-    private void answer(TextView answerButton){
+    private void answer(Button answerButton){
         int toastId;
         if(Integer.parseInt(answerButton.getText().toString()) == answer){
             totalCorrect++;

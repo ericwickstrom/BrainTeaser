@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,87 +7,116 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.example.beardsmcgee.brainteaser.MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="3 + 2"
-        android:id="@+id/problemTextView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="55"
+            android:id="@+id/timerTextView"
+            android:layout_alignParentLeft="true"
+            android:textSize="25dp"
+            android:background="#0390fb" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="5"
-        android:id="@+id/timerTextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0/0"
-        android:id="@+id/scoreTextView"
-        android:layout_alignTop="@+id/problemTextView"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="3 + 2"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/problemTextView"
+            android:textSize="25dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="55"
-        android:id="@+id/firstButtonTextView"
-        android:layout_below="@+id/problemTextView"
-        android:layout_toEndOf="@+id/timerTextView"
-        android:layout_marginTop="94dp"
-        android:background="@android:color/holo_blue_bright"
-        android:padding="50dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="0/0"
+            android:id="@+id/scoreTextView"
+            android:layout_alignParentRight="true"
+            android:textSize="25dp"
+            android:background="#fef504" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="55"
-        android:id="@+id/secondButtonTextView"
-        android:layout_alignTop="@+id/firstButtonTextView"
-        android:layout_alignParentEnd="true"
-        android:background="@android:color/holo_orange_dark"
-        android:padding="50dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="55"
-        android:id="@+id/thirdButtonTextView"
-        android:background="@android:color/holo_purple"
-        android:padding="50dp"
-        android:layout_below="@+id/firstButtonTextView"
-        android:layout_alignStart="@+id/firstButtonTextView"
-        android:layout_marginTop="50dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="55"
-        android:id="@+id/fourthButtonTextView"
-        android:background="@android:color/holo_red_light"
-        android:padding="50dp"
-        android:layout_alignTop="@+id/thirdButtonTextView"
-        android:layout_alignStart="@+id/secondButtonTextView" />
+    </RelativeLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
-        android:id="@+id/testButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:text="GO"
+        android:id="@+id/startButton"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:textSize="50dp"
+        android:padding="50dp"
+        android:visibility="gone" />
 
-</RelativeLayout>
+    <GridLayout
+        android:id="@+id/grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="55"
+            android:id="@+id/firstButton"
+            android:background="@android:color/holo_blue_bright"
+
+            android:textSize="50dp"
+            android:layout_gravity="fill"
+            android:layout_row="0"
+            android:layout_column="0"/>
+
+
+        <Button
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="55"
+            android:id="@+id/secondButton"
+            android:background="@android:color/holo_orange_dark"
+            android:textSize="50dp"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_row="0"
+            android:layout_column="2"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="55"
+            android:id="@+id/thirdButtonTextView"
+            android:background="@android:color/holo_purple"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:textSize="50dp"
+            android:layout_gravity="fill"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="55"
+            android:id="@+id/fourthButton"
+            android:background="@android:color/holo_red_light"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:textSize="50dp"
+            android:layout_gravity="fill"/>
+    </GridLayout>
+
+
+</LinearLayout>
